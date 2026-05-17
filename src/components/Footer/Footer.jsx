@@ -28,7 +28,7 @@ const Footer = () => {
         </div>
       </div>
       <div style={styles.copy}>
-        <p>© 2026 Coffee Lab - Pre-entrega Talento Lab</p>
+        <p>© 2026 Coffee Lab</p>
       </div>
     </footer>
   );
