@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useCart } from '../../context/CartContext';
 
-const Item = ({ id, nombre, precio, foto }) => {
+const Item = ({ id, nombre, precio, foto, descripcion }) => {
   const [hover, setHover] = useState(false);
   const { addToCart } = useCart();
   const [favorito, setFavorito] = useState(false);
@@ -49,6 +49,7 @@ const Item = ({ id, nombre, precio, foto }) => {
       )}
       <div style={{ padding: '15px' }}>
         <h3 style={{ margin: '10px 0', color: '#3e2723' }}>{nombre}</h3>
+        {descripcion && <p style={{ color: '#8a7a6b', fontSize: '0.85rem', margin: '5px 0' }}>{descripcion}</p>}
         <p style={{ color: '#6f4e37', fontSize: '20px', fontWeight: 'bold' }}>${precio}</p>
         <button
           onClick={() => addToCart({ id, nombre, precio, foto })}
