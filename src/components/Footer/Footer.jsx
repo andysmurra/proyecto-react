@@ -1,8 +1,8 @@
 const Footer = () => {
   const equipo = [
-    { id: 1, nombre: "Andrés", rol: "Frontend Developer" },
-    { id: 2, nombre: "Lucía", rol: "UI/UX Designer" },
-    { id: 3, nombre: "Marcos", rol: "Project Manager" }
+    { id: 1, nombre: "Andrés", rol: "Frontend Developer", foto: "https://api.dicebear.com/9.x/avataaars/svg?seed=Andres" },
+    { id: 2, nombre: "Lucía", rol: "UI/UX Designer", foto: "https://api.dicebear.com/9.x/avataaars/svg?seed=Lucia" },
+    { id: 3, nombre: "Marcos", rol: "Project Manager", foto: "https://api.dicebear.com/9.x/avataaars/svg?seed=Marcos" }
   ];
 
   return (
@@ -19,7 +19,7 @@ const Footer = () => {
           <div style={styles.gridEquipo}>
             {equipo.map(persona => (
               <div key={persona.id} style={styles.tarjetaPersona}>
-                <div style={styles.avatar}>👤</div>
+                <img src={persona.foto} alt={persona.nombre} style={styles.avatar} />
                 <p style={styles.nombrePersona}>{persona.nombre}</p>
                 <p style={styles.rolPersona}>{persona.rol}</p>
               </div>
@@ -60,18 +60,23 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     gap: '20px',
-    marginTop: '15px'
+    marginTop: '15px',
+    flexWrap: 'wrap',
   },
   tarjetaPersona: {
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    padding: '15px',
+    padding: '20px',
     borderRadius: '10px',
-    minWidth: '120px',
-    border: '1px solid #6f4e37'
+    minWidth: '140px',
+    border: '1px solid #6f4e37',
+    textAlign: 'center',
   },
   avatar: {
-    fontSize: '2rem',
-    marginBottom: '5px'
+    width: '70px',
+    height: '70px',
+    borderRadius: '50%',
+    marginBottom: '10px',
+    backgroundColor: '#d2b48c',
   },
   nombrePersona: {
     fontWeight: 'bold',
