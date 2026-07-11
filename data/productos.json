@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "nombre": "Espresso Intenso",
+    "precio": 2500,
+    "foto": "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=500"
+  },
+  {
+    "id": 2,
+    "nombre": "Latte Art Especial",
+    "precio": 3200,
+"foto": "https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=500"
+  },
+  {
+    "id": 3,
+    "nombre": "Capuccino Italiano",
+    "precio": 2800,
+    "foto": "https://images.unsplash.com/photo-1534778101976-62847782c213?w=500"
+  }
+]
