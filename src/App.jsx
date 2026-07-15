@@ -7,7 +7,7 @@ import CarritoView from './components/Carrito/CarritoView';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import ProtectedRoute from './components/Auth/ProtectedRoute';
-import ProductManager from './components/Admin/ProductManager';
+import AdminPanel from './components/Admin/AdminPanel';
 
 function App() {
   return (
@@ -28,7 +28,7 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/admin" element={
                 <ProtectedRoute rolesPermitidos={['admin']}>
-                  <ProductManager />
+                  <AdminPanel />
                 </ProtectedRoute>
               } />
             </Routes>

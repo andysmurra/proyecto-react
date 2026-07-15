@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+import { db, hasConfig } from '../../config/firebase';
 import { useCart } from '../../context/CartContext';
 
-const CUPONES_VALIDOS = {
+const CUPONES_FALLBACK = {
   COFFEE10: 10,
   LAB15: 15,
   BIENVENIDO20: 20,
@@ -13,6 +15,26 @@ const CarritoView = () => {
   const [descuento, setDescuento] = useState(0);
   const [cuponMsg, setCuponMsg] = useState('');
   const [cuponError, setCuponError] = useState('');
+  const [cuponesDB, setCuponesDB] = useState({});
+
+  useEffect(() => {
+    if (hasConfig && db) {
+      getDocs(collection(db, 'cupones')).then(qs => {
+        const map = {};
+        qs.docs.forEach(d => {
+          const data = d.data();
+          if (data.activo !== false) {
+            map[data.codigo?.toUpperCase()] = data.descuento;
+          }
+        });
+        setCuponesDB(map);
+      }).catch(() => {});
+    }
+  }, []);
+
+  const obtenerCupones = () => {
+    return { ...CUPONES_FALLBACK, ...cuponesDB };
+  };
 
   const finalizarCompra = () => {
     alert(`¡Compra finalizada! Total: $${totalConDescuento}. Gracias por tu compra ☕`);
@@ -26,7 +48,8 @@ const CarritoView = () => {
       setCuponMsg('');
       return;
     }
-    const discount = CUPONES_VALIDOS[code];
+    const cupones = obtenerCupones();
+    const discount = cupones[code];
     if (discount) {
       setDescuento(discount);
       setCuponMsg(`¡Cupón aplicado! ${discount}% de descuento`);
@@ -82,7 +105,7 @@ const CarritoView = () => {
             {cuponMsg && <p style={{ color: '#27ae60', fontSize: '0.9rem', margin: '8px 0 0' }}>{cuponMsg}</p>}
             {cuponError && <p style={{ color: '#e74c3c', fontSize: '0.9rem', margin: '8px 0 0' }}>{cuponError}</p>}
             <p style={{ color: '#6f4e37', fontSize: '0.8rem', margin: '8px 0 0' }}>
-              Cupones disponibles: COFFEE10 (10%), LAB15 (15%), BIENVENIDO20 (20%)
+              Cupones disponibles: {Object.entries(obtenerCupones()).map(([c, d]) => `${c} (${d}%)`).join(', ')}
             </p>
           </div>
 
